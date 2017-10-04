@@ -41,8 +41,11 @@ public class KochManager implements Observer {
         fBottom = pool.submit(new KochCallable(this, Side.Bottom, next));
         try {
             ArrayList<Edge> left = (ArrayList<Edge>) fLeft.get();
-            ArrayList<Edge> right = (ArrayList<Edge>)  fRight.get();
-            ArrayList<Edge> bottom = (ArrayList<Edge>)  fBottom.get();
+            ArrayList<Edge> right = (ArrayList<Edge>) fRight.get();
+            ArrayList<Edge> bottom = (ArrayList<Edge>) fBottom.get();
+            edges.addAll(left);
+            edges.addAll(right);
+            edges.addAll(bottom);
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
@@ -55,8 +58,8 @@ public class KochManager implements Observer {
     }
 
     synchronized void doneWithGenerating() {
-        count++;
-        if (count == 3) {
+//        count++;
+//        if (count == 3) {
             time.setEnd("End");
             time.setBegin("Start");
             Platform.runLater(() -> {
@@ -68,7 +71,7 @@ public class KochManager implements Observer {
             Platform.runLater(() -> {
                 application.setTextDraw(String.valueOf(time.toString()));
             });
-        }
+//        }
     }
 
     public void drawEdges() {
