@@ -39,8 +39,8 @@ public class KochCallable implements Callable, Observer {
     private synchronized void addEdges(Edge edge) {
         edges.add(edge);
     }
-}
 
-enum Side {
-    Left, Right, Bottom
+    enum Side {
+        Left, Right, Bottom
+    }
 }

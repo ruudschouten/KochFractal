@@ -10,12 +10,13 @@ import java.util.Observer;
 import java.util.concurrent.*;
 
 public class KochManager implements Observer {
-    private int count = 0;
+    public ArrayList<Edge> edges = new ArrayList<>();
+    public ExecutorService pool;
+
+    private JSF31KochFractalFX application;
+//    private int count = 0;
     private TimeStamp time;
     private KochFractal koch;
-    private JSF31KochFractalFX application;
-    private ArrayList<Edge> edges = new ArrayList<>();
-    private ExecutorService pool;
 
     public KochManager(JSF31KochFractalFX application) {
         this.application = application;
@@ -30,25 +31,14 @@ public class KochManager implements Observer {
     }
 
     public void changeLevel(int next) {
-        count = 0;
+//        count = 0;
         edges = new ArrayList<>();
         time = new TimeStamp();
         koch.setLevel(next);
-        Future fLeft, fRight, fBottom;
         time.setBegin("Start");
-        fLeft = pool.submit(new KochCallable(this, Side.Left, next));
-        fRight = pool.submit(new KochCallable(this, Side.Right, next));
-        fBottom = pool.submit(new KochCallable(this, Side.Bottom, next));
-        try {
-            ArrayList<Edge> left = (ArrayList<Edge>) fLeft.get();
-            ArrayList<Edge> right = (ArrayList<Edge>) fRight.get();
-            ArrayList<Edge> bottom = (ArrayList<Edge>) fBottom.get();
-            edges.addAll(left);
-            edges.addAll(right);
-            edges.addAll(bottom);
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
+        KochCollector collector = new KochCollector(this, next);
+        Thread t = new Thread(collector);
+        t.run();
     }
 
     //Hierbij hebben we hulp gekregen van Nick,
