@@ -10,11 +10,10 @@ import java.util.Observer;
 import java.util.concurrent.*;
 
 public class KochManager implements Observer {
-    public ArrayList<Edge> edges = new ArrayList<>();
-    public ExecutorService pool;
+    private ArrayList<Edge> edges = new ArrayList<>();
+    ExecutorService pool;
 
     private JSF31KochFractalFX application;
-//    private int count = 0;
     private TimeStamp time;
     private KochFractal koch;
 
@@ -22,7 +21,7 @@ public class KochManager implements Observer {
         this.application = application;
         koch = new KochFractal();
         koch.addObserver(this);
-        pool = Executors.newFixedThreadPool(3);
+        pool = Executors.newFixedThreadPool(4);
     }
 
     @Override
@@ -31,14 +30,12 @@ public class KochManager implements Observer {
     }
 
     public void changeLevel(int next) {
-//        count = 0;
         edges = new ArrayList<>();
         time = new TimeStamp();
         koch.setLevel(next);
         time.setBegin("Start");
         KochCollector collector = new KochCollector(this, next);
-        Thread t = new Thread(collector);
-        t.run();
+        pool.submit(collector);
     }
 
     //Hierbij hebben we hulp gekregen van Nick,
@@ -46,22 +43,22 @@ public class KochManager implements Observer {
     synchronized void addEdge(Edge edge) {
         edges.add(edge);
     }
+    synchronized void addEdges(ArrayList<Edge> edges) {
+        this.edges.addAll(edges);
+    }
 
     synchronized void doneWithGenerating() {
-//        count++;
-//        if (count == 3) {
-            time.setEnd("End");
-            time.setBegin("Start");
-            Platform.runLater(() -> {
-                application.setTextNrEdges(String.valueOf(koch.getNrOfEdges()));
-                application.setTextCalc(String.valueOf(time.toString()));
-            });
-            application.requestDrawEdges();
-            time.setBegin("End");
-            Platform.runLater(() -> {
-                application.setTextDraw(String.valueOf(time.toString()));
-            });
-//        }
+        time.setEnd("End");
+        System.out.printf("Done with calc %d - %s", koch.getLevel(), time.toString());
+        time.setBegin("Start");
+        Platform.runLater(() -> {
+            application.setTextNrEdges(String.valueOf(koch.getNrOfEdges()));
+            application.setTextCalc(String.valueOf(time.toString()));
+        });
+        application.requestDrawEdges();
+        Platform.runLater(() -> {
+            application.setTextDraw(String.valueOf(time.toString()));
+        });
     }
 
     public void drawEdges() {

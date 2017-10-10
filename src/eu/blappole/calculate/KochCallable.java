@@ -13,8 +13,8 @@ public class KochCallable implements Callable, Observer {
 
     KochCallable(KochManager manager, Side side, int level) {
         this.manager = manager;
-        fractal = new KochFractal();
         this.side = side;
+        fractal = new KochFractal();
         fractal.addObserver(this);
         fractal.setLevel(level);
         edges = new ArrayList<>();
@@ -32,7 +32,6 @@ public class KochCallable implements Callable, Observer {
             case Right: fractal.generateRightEdge(); break;
             case Bottom: fractal.generateBottomEdge(); break;
         }
-        manager.doneWithGenerating();
         return edges;
     }
 
