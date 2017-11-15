@@ -1,33 +1,59 @@
 package eu.blappole.calculate;
 
+import eu.blappole.jsf31kochfractalfx.JSF31KochFractalFX;
+import javafx.concurrent.Task;
+
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Future;
 
 public class KochCollector implements Runnable {
+    private Task<List<Edge>> tLeft;
+    private Task<List<Edge>> tRight;
+    private Task<List<Edge>> tBottom;
     private int next;
     private ExecutorService pool;
     private KochManager manager;
 
-    public KochCollector(KochManager manager, int next) {
+    public KochCollector(KochManager manager, int next, JSF31KochFractalFX application) {
         this.manager = manager;
         this.pool = manager.pool;
         this.next = next;
+        tLeft = new KochTask(Side.LEFT, next, application);
+        tRight = new KochTask(Side.RIGHT, next, application);
+        tBottom = new KochTask(Side.BOTTOM, next, application);
     }
 
     @Override
     public void run() {
-        Future fLeft, fRight, fBottom;
-        fLeft = pool.submit(new KochCallable(manager, KochCallable.Side.Left, next));
-        fRight = pool.submit(new KochCallable(manager, KochCallable.Side.Right, next));
-        fBottom = pool.submit(new KochCallable(manager, KochCallable.Side.Bottom, next));
+        pool.submit(tLeft);
+        pool.submit(tBottom);
+        pool.submit(tRight);
         try {
-            manager.addEdges((ArrayList<Edge>) fLeft.get());
-            manager.addEdges((ArrayList<Edge>) fRight.get());
-            manager.addEdges((ArrayList<Edge>) fBottom.get());
-        manager.doneWithGenerating();
-        } catch (InterruptedException | ExecutionException e) { e.printStackTrace(); }
+            manager.addEdges((ArrayList<Edge>) tLeft.get());
+            manager.addEdges((ArrayList<Edge>) tRight.get());
+            manager.addEdges((ArrayList<Edge>) tBottom.get());
+            manager.doneWithGenerating();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Task<List<Edge>> gettBottom() {
+        return tBottom;
+    }
+
+    public Task<List<Edge>> gettLeft() {
+        return tLeft;
+    }
+
+    public Task<List<Edge>> gettRight() {
+        return tRight;
+    }
+
+    enum Side {
+        LEFT, RIGHT, BOTTOM
     }
 }
 

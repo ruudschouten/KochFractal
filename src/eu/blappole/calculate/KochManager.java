@@ -3,6 +3,8 @@ package eu.blappole.calculate;
 import eu.blappole.jsf31kochfractalfx.JSF31KochFractalFX;
 import eu.blappole.timeutil.TimeStamp;
 import javafx.application.Platform;
+import javafx.concurrent.WorkerStateEvent;
+import javafx.event.EventHandler;
 
 import java.util.ArrayList;
 import java.util.Observable;
@@ -34,15 +36,26 @@ public class KochManager implements Observer {
         time = new TimeStamp();
         koch.setLevel(next);
         time.setBegin("Start");
-        KochCollector collector = new KochCollector(this, next);
+        KochCollector collector = new KochCollector(this, next, application);
+        application.getBarBottom().progressProperty().bind(collector.gettBottom().progressProperty());
+        application.getBarLeft().progressProperty().bind(collector.gettLeft().progressProperty());
+        application.getBarRight().progressProperty().bind(collector.gettRight().progressProperty());
+        application.getLbBottomStatus().textProperty().bind(collector.gettBottom().messageProperty());
+        application.getLbLeftStatus().textProperty().bind(collector.gettLeft().messageProperty());
+        application.getLbRightStatus().textProperty().bind(collector.gettRight().messageProperty());
+//        application.clearKochPanel();
         pool.submit(collector);
+        EventHandler handler = new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+                drawEdges();
+            }
+        };
+        collector.gettBottom().setOnSucceeded(handler);
+        collector.gettLeft().setOnSucceeded(handler);
+        collector.gettRight().setOnSucceeded(handler);
     }
 
-    //Hierbij hebben we hulp gekregen van Nick,
-    //eerst gebruikte we geen synchronized methode waardoor de edges niet allemaal in de lijst kwam
-    synchronized void addEdge(Edge edge) {
-        edges.add(edge);
-    }
     synchronized void addEdges(ArrayList<Edge> edges) {
         this.edges.addAll(edges);
     }
@@ -66,7 +79,7 @@ public class KochManager implements Observer {
         time = new TimeStamp();
         time.setBegin("Start");
         for (Edge e : edges) {
-            application.drawEdge(e);
+            application.drawEdge(e, true);
         }
         time.setEnd("End");
         application.setTextNrEdges(String.valueOf(koch.getNrOfEdges()));
