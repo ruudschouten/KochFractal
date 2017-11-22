@@ -1,15 +1,0 @@
-
-asquid:S1192"GDefine a constant instead of duplicating this literal "Status" 6 times.(–í÷½úÿÿÿÿ
-bsquid:S1192"HDefine a constant instead of duplicating this literal "Level: " 3 times.(µ‚”éıÿÿÿÿ
-psquid:S1450"[Remove the "labelNrEdges" field and declare it as a local variable in the relevant methods.(Ÿà†ƒ
-rsquid:S1450"XRemove the "labelCalc" field and declare it as a local variable in the relevant methods.(“ü³Õùÿÿÿÿ
-rsquid:S1450"XRemove the "labelDraw" field and declare it as a local variable in the relevant methods.(ô°Œúÿÿÿÿ
-`squid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Ş›Ï‘
-esquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(şÔ½×úÿÿÿÿ
-esquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(şÔ½×úÿÿÿÿ
-Fsquid:S1172",Remove this unused method parameter "event".(Èâë†şÿÿÿÿ
-@squid:S1172",Remove this unused method parameter "event".(‚†¸E
-Fsquid:S1172",Remove this unused method parameter "event".(ÿ¦ÅŸøÿÿÿÿ
-6squid:S1170"!Make this final field static too.(ßÔƒæ
-;squid:S1170"!Make this final field static too.(›šĞşÿÿÿÿ
-Bsquid:S1604"(Make this anonymous inner class a lambda(ôâŠûıÿÿÿÿ
