@@ -12,14 +12,12 @@ public class KochCollector implements Runnable {
     private Task<List<Edge>> tLeft;
     private Task<List<Edge>> tRight;
     private Task<List<Edge>> tBottom;
-    private int next;
     private ExecutorService pool;
     private KochManager manager;
 
     public KochCollector(KochManager manager, int next, JSF31KochFractalFX application) {
         this.manager = manager;
         this.pool = manager.pool;
-        this.next = next;
         tLeft = new KochTask(Side.LEFT, next, application);
         tRight = new KochTask(Side.RIGHT, next, application);
         tBottom = new KochTask(Side.BOTTOM, next, application);
@@ -40,15 +38,15 @@ public class KochCollector implements Runnable {
         }
     }
 
-    public Task<List<Edge>> gettBottom() {
+    public Task<List<Edge>> getBottom() {
         return tBottom;
     }
 
-    public Task<List<Edge>> gettLeft() {
+    public Task<List<Edge>> getLeft() {
         return tLeft;
     }
 
-    public Task<List<Edge>> gettRight() {
+    public Task<List<Edge>> getRight() {
         return tRight;
     }
 

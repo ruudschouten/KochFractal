@@ -16,8 +16,11 @@ public class KochManager implements Observer {
     ExecutorService pool;
 
     private JSF31KochFractalFX application;
-    private TimeStamp time;
+    private TimeStamp drawTime;
+    private TimeStamp calcTime;
     private KochFractal koch;
+
+    private Future collectorContainer;
 
     public KochManager(JSF31KochFractalFX application) {
         this.application = application;
@@ -32,28 +35,35 @@ public class KochManager implements Observer {
     }
 
     public void changeLevel(int next) {
+        koch.cancel();
+        //Terminate threads in pool
+        if(collectorContainer!= null) {
+            collectorContainer.cancel(true);
+        }
         edges = new ArrayList<>();
-        time = new TimeStamp();
+        calcTime = new TimeStamp();
         koch.setLevel(next);
-        time.setBegin("Start");
+        calcTime.setBegin("Start");
         KochCollector collector = new KochCollector(this, next, application);
-        application.getBarBottom().progressProperty().bind(collector.gettBottom().progressProperty());
-        application.getBarLeft().progressProperty().bind(collector.gettLeft().progressProperty());
-        application.getBarRight().progressProperty().bind(collector.gettRight().progressProperty());
-        application.getLbBottomStatus().textProperty().bind(collector.gettBottom().messageProperty());
-        application.getLbLeftStatus().textProperty().bind(collector.gettLeft().messageProperty());
-        application.getLbRightStatus().textProperty().bind(collector.gettRight().messageProperty());
+        application.getBarBottom().progressProperty().bind(collector.getBottom().progressProperty());
+        application.getBarLeft().progressProperty().bind(collector.getLeft().progressProperty());
+        application.getBarRight().progressProperty().bind(collector.getRight().progressProperty());
+        application.getLbBottomStatus().textProperty().bind(collector.getBottom().messageProperty());
+        application.getLbLeftStatus().textProperty().bind(collector.getLeft().messageProperty());
+        application.getLbRightStatus().textProperty().bind(collector.getRight().messageProperty());
 //        application.clearKochPanel();
-        pool.submit(collector);
+        collectorContainer = pool.submit(collector);
+//        pool.submit(collector);
+
         EventHandler handler = new EventHandler<WorkerStateEvent>() {
             @Override
             public void handle(WorkerStateEvent event) {
                 drawEdges();
             }
         };
-        collector.gettBottom().setOnSucceeded(handler);
-        collector.gettLeft().setOnSucceeded(handler);
-        collector.gettRight().setOnSucceeded(handler);
+        collector.getBottom().setOnSucceeded(handler);
+        collector.getLeft().setOnSucceeded(handler);
+        collector.getRight().setOnSucceeded(handler);
     }
 
     synchronized void addEdges(ArrayList<Edge> edges) {
@@ -61,28 +71,28 @@ public class KochManager implements Observer {
     }
 
     synchronized void doneWithGenerating() {
-        time.setEnd("End");
-        System.out.printf("Done with calc %d - %s", koch.getLevel(), time.toString());
-        time.setBegin("Start");
+        calcTime.setEnd("End");
+        System.out.printf("Done with calc %d - %s", koch.getLevel(), calcTime.toString());
+        calcTime.setBegin("Start");
         Platform.runLater(() -> {
             application.setTextNrEdges(String.valueOf(koch.getNrOfEdges()));
-            application.setTextCalc(String.valueOf(time.toString()));
+            application.setTextCalc(String.valueOf(calcTime.toString()));
         });
         application.requestDrawEdges();
         Platform.runLater(() -> {
-            application.setTextDraw(String.valueOf(time.toString()));
+            application.setTextDraw(String.valueOf(drawTime.toString()));
         });
     }
 
     public void drawEdges() {
         application.clearKochPanel();
-        time = new TimeStamp();
-        time.setBegin("Start");
+        drawTime = new TimeStamp();
+        drawTime.setBegin("Start");
         for (Edge e : edges) {
             application.drawEdge(e, true);
         }
-        time.setEnd("End");
+        drawTime.setEnd("End");
         application.setTextNrEdges(String.valueOf(koch.getNrOfEdges()));
-        application.setTextDraw(String.valueOf(time.toString()));
+        application.setTextDraw(String.valueOf(drawTime.toString()));
     }
 }
