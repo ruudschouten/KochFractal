@@ -38,15 +38,7 @@ public class Console {
 
     private static void generateKoch(int level) throws IOException {
         filename = "Koch" + level + ".kch";
-        //Text
-        writer = new FileWriter(filename);
-        bufferedWriter = new BufferedWriter(writer);
-        //Object
-        fos = new FileOutputStream(filename);
-        oos = new ObjectOutputStream(fos);
-        bos = new BufferedOutputStream(fos);
-        boos = new ObjectOutputStream(bos);
-
+        openWriters();
         KochFractal koch = new KochFractal();
         koch.setLevel(level);
         koch.addObserver((o, arg) -> {
@@ -61,9 +53,30 @@ public class Console {
         koch.generateBottomEdge();
         koch.generateLeftEdge();
         koch.generateRightEdge();
+        closeWriters();
         timeStamp.setEnd("End");
         System.out.println(timeStamp);
         System.out.println(koch.getNrOfEdges());
+    }
+
+    private static void openWriters() throws IOException {
+        //Text
+        writer = new FileWriter(filename);
+        bufferedWriter = new BufferedWriter(writer);
+        //Object
+        fos = new FileOutputStream(filename);
+        oos = new ObjectOutputStream(fos);
+        bos = new BufferedOutputStream(fos);
+        boos = new ObjectOutputStream(bos);
+    }
+
+    private static void closeWriters() throws IOException {
+        writer.close();
+        bufferedWriter.close();
+//        fos.close();
+        bos.close();
+        oos.close();
+        boos.close();
     }
 
     private static void writeText(Edge e) throws IOException {
