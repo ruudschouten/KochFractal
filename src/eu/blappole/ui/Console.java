@@ -43,7 +43,7 @@ public class Console {
         koch.setLevel(level);
         koch.addObserver((o, arg) -> {
             try {
-                writeBufferedObject((Edge) arg);
+                writeText((Edge) arg);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -71,8 +71,10 @@ public class Console {
     }
 
     private static void closeWriters() throws IOException {
-        writer.close();
+        //Text
         bufferedWriter.close();
+        writer.close();
+        //Object
 //        fos.close();
         bos.close();
         oos.close();
@@ -81,7 +83,7 @@ public class Console {
 
     private static void writeText(Edge e) throws IOException {
         try {
-            writer.write(String.format("X1%s X2%s Y1%s Y2%s\n", e.X1, e.X2, e.Y1, e.Y2));
+            writer.write(String.format("%s,%s,%s,%s\n", e.X1, e.X2, e.Y1, e.Y2));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -89,7 +91,7 @@ public class Console {
 
     private static void writeBufferedText(Edge e) throws IOException {
         try {
-            bufferedWriter.write(String.format("X1%s X2%s Y1%s Y2%s\n", e.X1, e.X2, e.Y1, e.Y2));
+            bufferedWriter.write(String.format("%s,%s,%s,%s\n", e.X1, e.X2, e.Y1, e.Y2));
         } catch (IOException ex) {
             ex.printStackTrace();
         }

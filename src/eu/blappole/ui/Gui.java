@@ -19,7 +19,7 @@ public class Gui extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("gui.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
-        primaryStage.setTitle("login");
+        primaryStage.setTitle("Koch Loader");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

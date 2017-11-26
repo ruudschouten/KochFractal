@@ -1,9 +1,7 @@
 package eu.blappole.ui.controllers;
 
 import eu.blappole.calculate.Edge;
-import eu.blappole.calculate.KochFractal;
-import eu.blappole.calculate.KochManager;
-import javafx.application.Platform;
+import eu.blappole.timeutil.TimeStamp;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -23,6 +21,7 @@ public class Controller {
     private int level = 1;
     private String filename;
     private Scanner scanner;
+    private Scanner bufferedScanner;
 
     private ObjectInputStream ois;
     private FileInputStream fis;
@@ -45,62 +44,77 @@ public class Controller {
     public void loadKoch(ActionEvent actionEvent) throws IOException {
         clearCanvas();
         filename = "Koch" + level + ".kch";
-        fis = new FileInputStream(filename);
-        ois = new ObjectInputStream(fis);
-        scanner = new Scanner(new File(filename));
-        readObject();
+//        fis = new FileInputStream(filename);
+//        ois = new ObjectInputStream(fis);
+        scanner = new Scanner(new FileInputStream(filename));
+        bufferedScanner = new Scanner(new BufferedInputStream(new FileInputStream(filename)));
+        TimeStamp time = new TimeStamp();
+        time.setBegin("Start");
+//        readObject();
+//        readBufferedObject();
 //        readText();
-        drawKoch();
+        readBufferedText();
+        time.setEnd("End");
+        System.out.println(time);
     }
 
     private void readText() {
-        //TODO: Fix positions
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
-            String x1 = line.substring(line.indexOf("X1") + 2, line.indexOf("X2") - 1);
-            String x2 = line.substring(line.indexOf("X2") + 2, line.indexOf("Y1") - 1);
-            String y1 = line.substring(line.indexOf("Y1") + 2, line.indexOf("Y2") - 1);
-            String y2 = line.substring(line.indexOf("Y2") + 2);
-            Edge e = new Edge(Double.valueOf(x1) * 1000, Double.valueOf(x2) * 1000, Double.valueOf(y1) * 1000, Double.valueOf(y2) * 1000, Color.WHITE);
+            String[] entries = line.split(",");
+            String x1 = entries[0];
+            String x2 = entries[1];
+            String y1 = entries[2];
+            String y2 = entries[3];
+            Edge e = new Edge(Double.valueOf(x1), Double.valueOf(y1), Double.valueOf(x2), Double.valueOf(y2), Color.WHITE);
+            drawEdge(e);
+        }
+    }
+
+    private void readBufferedText() {
+        while (bufferedScanner.hasNextLine()) {
+            String line = bufferedScanner.nextLine();
+            String[] entries = line.split(",");
+            String x1 = entries[0];
+            String x2 = entries[1];
+            String y1 = entries[2];
+            String y2 = entries[3];
+            Edge e = new Edge(Double.valueOf(x1), Double.valueOf(y1), Double.valueOf(x2), Double.valueOf(y2), Color.WHITE);
             drawEdge(e);
         }
     }
 
     private void readObject() {
-
-//            Edge e = null;
-//            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(scanner.nextLine()))) {
-//                e = (Edge) ois.readObject();
-//                drawEdge(e);
-//            } catch (IOException | ClassNotFoundException e1) {
-//                e1.printStackTrace();
-//            }
-        boolean cont = true;
         try {
-            while (cont) {
-                Object o = ois.readObject();
-                Edge e = (Edge) o;
-                if (e != null) {
-                    drawEdge(e);
-//                    edges.add(e);
-                } else cont = false;
+            ObjectInputStream inputStream = new ObjectInputStream(fis);
+            Object obj = null;
+            while ((obj = inputStream.readObject()) != null) {
+                if (obj instanceof Edge) {
+                    drawEdge((Edge) obj);
+                }
             }
-            ois.close();
-//            fis.close();
+            inputStream.close();
+        } catch (EOFException ex) {
+            System.out.println("End of file reached");
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    private void drawKoch() {
-        for (Edge e : edges) {
-//            Platform.runLater(new Runnable() {
-//                @Override
-//                public void run() {
-//                    drawEdge(e);
-//                }
-//            });
-            drawEdge(e);
+    private void readBufferedObject() {
+        try {
+            ObjectInputStream inputStream = new ObjectInputStream(new BufferedInputStream(fis));
+            Object obj = null;
+            while ((obj = inputStream.readObject()) != null) {
+                if (obj instanceof Edge) {
+                    drawEdge((Edge) obj);
+                }
+            }
+            inputStream.close();
+        } catch (EOFException ex) {
+            System.out.println("End of file reached");
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
@@ -121,6 +135,20 @@ public class Controller {
         gc.setLineWidth(1.0);
 
         // Draw line
+        e = resizeEdge(e);
         gc.strokeLine(e.X1, e.Y1, e.X2, e.Y2);
+    }
+
+    private Edge resizeEdge(Edge e) {
+        int kpSize = Math.min(580, 580);
+        double zoom = kpSize;
+        double zoomTranslateX = (580 - kpSize) / 2.0;
+        double zoomTranslateY = (580 - kpSize) / 2.0;
+        return new Edge(
+                e.X1 * zoom + zoomTranslateX,
+                e.Y1 * zoom + zoomTranslateY,
+                e.X2 * zoom + zoomTranslateX,
+                e.Y2 * zoom + zoomTranslateY,
+                e.color);
     }
 }
