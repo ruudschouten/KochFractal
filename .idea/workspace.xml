@@ -5,7 +5,6 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/eu/blappole/ui/Gui.java" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/eu/blappole/ui/gui.fxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/blappole/ui/Console.java" afterPath="$PROJECT_DIR$/src/eu/blappole/ui/Console.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -409,7 +408,7 @@
       <workItem from="1511356998442" duration="1531000" />
       <workItem from="1511461951244" duration="2816000" />
       <workItem from="1511634567611" duration="10493000" />
-      <workItem from="1511695868483" duration="3233000" />
+      <workItem from="1511695868483" duration="3247000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1507111252708</created>
@@ -481,11 +480,18 @@
       <option name="project" value="LOCAL" />
       <updated>1511642847898</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Updated Console">
+      <created>1511699211055</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1511699211055</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="68762000" />
+    <option name="totallyTimeSpent" value="68776000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
@@ -568,7 +574,8 @@
     <MESSAGE value="Updated gitignore" />
     <MESSAGE value="Removed out" />
     <MESSAGE value="Added saving methods" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added saving methods" />
+    <MESSAGE value="Updated Console" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated Console" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
