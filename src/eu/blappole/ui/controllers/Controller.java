@@ -2,6 +2,8 @@ package eu.blappole.ui.controllers;
 
 import eu.blappole.calculate.Edge;
 import eu.blappole.timeutil.TimeStamp;
+import eu.blappole.ui.Type;
+import eu.blappole.ui.TypeGetter;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -11,6 +13,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.paint.Color;
 
 import java.io.*;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -23,10 +27,12 @@ public class Controller {
     private Scanner scanner;
     private Scanner bufferedScanner;
 
-    private ObjectInputStream ois;
-    private FileInputStream fis;
-
-    private ArrayList<Edge> edges = new ArrayList<>();
+    private ObjectInputStream objectInputStream;
+    private FileInputStream fileInputStream;
+    /*
+    Change this for different types
+     */
+    private Type type = TypeGetter.TYPE;
 
     public void initialize() {
         clearCanvas();
@@ -44,18 +50,50 @@ public class Controller {
     public void loadKoch(ActionEvent actionEvent) throws IOException {
         clearCanvas();
         filename = "Koch" + level + ".kch";
-//        fis = new FileInputStream(filename);
-//        ois = new ObjectInputStream(fis);
-        scanner = new Scanner(new FileInputStream(filename));
-        bufferedScanner = new Scanner(new BufferedInputStream(new FileInputStream(filename)));
+        openReaders();
+
         TimeStamp time = new TimeStamp();
         time.setBegin("Start");
-//        readObject();
-//        readBufferedObject();
-//        readText();
-        readBufferedText();
+
+        switch (type) {
+            case TEXT: readText(); break;
+            case BINARY: readObject(); break;
+            case MAPPED: readMapped(); break;
+            case BUFFEREDTEXT: readBufferedText(); break;
+            case BUFFEREDBINARY: readBufferedObject(); break;
+        }
         time.setEnd("End");
         System.out.println(time);
+    }
+
+    private void openReaders() throws IOException {
+//        if(type == Type.BINARY || type == Type.BUFFEREDBINARY) {
+            fileInputStream = new FileInputStream(filename);
+            objectInputStream = new ObjectInputStream(fileInputStream);
+//        }
+//        else if (type == Type.TEXT || type == Type.BUFFEREDTEXT) {
+            scanner = new Scanner(new FileInputStream(filename));
+            bufferedScanner = new Scanner(new BufferedInputStream(new FileInputStream(filename)));
+//        }
+    }
+
+    private void readMapped() throws IOException {
+        ArrayList<Edge> edges = new ArrayList<>();
+        final RandomAccessFile randomAccessFile = new RandomAccessFile(filename, "r");
+        final FileChannel fileChannel = randomAccessFile.getChannel();
+        final ByteBuffer byteBuffer = ByteBuffer.allocate((int)randomAccessFile.length());
+
+        fileChannel.read(byteBuffer);
+        byteBuffer.flip();
+
+        while (byteBuffer.hasRemaining()) {
+            Edge edge = new Edge();
+            edge.recover(byteBuffer);
+            edges.add(edge);
+        }
+
+        fileChannel.close();
+        randomAccessFile.close();
     }
 
     private void readText() {
@@ -86,7 +124,7 @@ public class Controller {
 
     private void readObject() {
         try {
-            ObjectInputStream inputStream = new ObjectInputStream(fis);
+            ObjectInputStream inputStream = new ObjectInputStream(fileInputStream);
             Object obj = null;
             while ((obj = inputStream.readObject()) != null) {
                 if (obj instanceof Edge) {
@@ -103,7 +141,7 @@ public class Controller {
 
     private void readBufferedObject() {
         try {
-            ObjectInputStream inputStream = new ObjectInputStream(new BufferedInputStream(fis));
+            ObjectInputStream inputStream = new ObjectInputStream(new BufferedInputStream(fileInputStream));
             Object obj = null;
             while ((obj = inputStream.readObject()) != null) {
                 if (obj instanceof Edge) {
@@ -129,8 +167,8 @@ public class Controller {
         // Graphics
         GraphicsContext gc = kochCanvas.getGraphicsContext2D();
 
-        // Set line color
-        gc.setStroke(Color.WHITE);
+        // Set line getColor
+        gc.setStroke(e.getColor());
 
         gc.setLineWidth(1.0);
 
@@ -149,6 +187,6 @@ public class Controller {
                 e.Y1 * zoom + zoomTranslateY,
                 e.X2 * zoom + zoomTranslateX,
                 e.Y2 * zoom + zoomTranslateY,
-                e.color);
+                e.getColor());
     }
 }
