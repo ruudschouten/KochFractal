@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="84012019-97e0-4df2-8c77-5ab3e1c05a01" name="Default" comment="Added GUI, Text working">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/eu/blappole/ui/Type.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/eu/blappole/ui/TypeGetter.java" />
+    <list default="true" id="84012019-97e0-4df2-8c77-5ab3e1c05a01" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/blappole/calculate/Edge.java" afterPath="$PROJECT_DIR$/src/eu/blappole/calculate/Edge.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/blappole/calculate/KochFractal.java" afterPath="$PROJECT_DIR$/src/eu/blappole/calculate/KochFractal.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/blappole/jsf31kochfractalfx/JSF31KochFractalFX.java" afterPath="$PROJECT_DIR$/src/eu/blappole/jsf31kochfractalfx/JSF31KochFractalFX.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/blappole/ui/Console.java" afterPath="$PROJECT_DIR$/src/eu/blappole/ui/Console.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/blappole/ui/TypeGetter.java" afterPath="$PROJECT_DIR$/src/eu/blappole/ui/TypeGetter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/blappole/ui/controllers/Controller.java" afterPath="$PROJECT_DIR$/src/eu/blappole/ui/controllers/Controller.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -60,8 +56,8 @@
       <file leaf-file-name="Controller.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/eu/blappole/ui/controllers/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="644">
-              <caret line="62" column="51" lean-forward="false" selection-start-line="62" selection-start-column="51" selection-end-line="62" selection-end-column="51" />
+            <state relative-caret-position="271">
+              <caret line="191" column="26" lean-forward="true" selection-start-line="191" selection-start-column="26" selection-end-line="191" selection-end-column="26" />
               <folding>
                 <element signature="method#readBufferedText#0;class#Controller#0" expanded="false" />
                 <element signature="method#clearCanvas#0;class#Controller#0" expanded="false" />
@@ -70,14 +66,25 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="Gui.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/eu/blappole/ui/Gui.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="266">
+              <caret line="21" column="39" lean-forward="true" selection-start-line="21" selection-start-column="39" selection-end-line="21" selection-end-column="39" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="Console.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/eu/blappole/ui/Console.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="952">
-              <caret line="75" column="5" lean-forward="false" selection-start-line="75" selection-start-column="5" selection-end-line="75" selection-end-column="5" />
+            <state relative-caret-position="-345">
+              <caret line="71" column="23" lean-forward="true" selection-start-line="71" selection-start-column="23" selection-end-line="71" selection-end-column="23" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#writeMapped#0;class#Console#0" expanded="false" />
                 <element signature="method#writeText#0;class#Console#0" expanded="false" />
                 <element signature="method#writeBufferedText#0;class#Console#0" expanded="false" />
                 <element signature="method#writeObject#0;class#Console#0" expanded="false" />
@@ -90,8 +97,8 @@
       <file leaf-file-name="TypeGetter.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/eu/blappole/ui/TypeGetter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="42">
-              <caret line="3" column="55" lean-forward="false" selection-start-line="3" selection-start-column="55" selection-end-line="3" selection-end-column="55" />
+            <state relative-caret-position="70">
+              <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -154,9 +161,9 @@
         <option value="$PROJECT_DIR$/src/eu/blappole/ui/Type.java" />
         <option value="$PROJECT_DIR$/src/eu/blappole/jsf31kochfractalfx/JSF31KochFractalFX.java" />
         <option value="$PROJECT_DIR$/src/eu/blappole/calculate/Edge.java" />
+        <option value="$PROJECT_DIR$/src/eu/blappole/ui/TypeGetter.java" />
         <option value="$PROJECT_DIR$/src/eu/blappole/ui/controllers/Controller.java" />
         <option value="$PROJECT_DIR$/src/eu/blappole/ui/Console.java" />
-        <option value="$PROJECT_DIR$/src/eu/blappole/ui/TypeGetter.java" />
       </list>
     </option>
   </component>
@@ -189,30 +196,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="AndroidView" />
-      <pane id="PackagesPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="KochFractal" type="58d84e3e:PackageViewProjectNode" />
-              <item name="KochFractal" type="616d4139:PackageViewModuleNode" />
-            </path>
-            <path>
-              <item name="KochFractal" type="58d84e3e:PackageViewProjectNode" />
-              <item name="KochFractal" type="616d4139:PackageViewModuleNode" />
-              <item name="eu.blappole" type="1f31426a:PackageElementNode" />
-            </path>
-            <path>
-              <item name="KochFractal" type="58d84e3e:PackageViewProjectNode" />
-              <item name="KochFractal" type="616d4139:PackageViewModuleNode" />
-              <item name="eu.blappole" type="1f31426a:PackageElementNode" />
-              <item name="ui" type="1f31426a:PackageElementNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -236,14 +219,7 @@
               <item name="KochFractal Op 5" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="blappole" type="462c0819:PsiDirectoryNode" />
-              <item name="calculate" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="KochFractal Op 5" type="b2602c69:ProjectViewProjectNode" />
-              <item name="KochFractal Op 5" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="blappole" type="462c0819:PsiDirectoryNode" />
-              <item name="jsf31kochfractalfx" type="462c0819:PsiDirectoryNode" />
+              <item name="ui" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="KochFractal Op 5" type="b2602c69:ProjectViewProjectNode" />
@@ -251,12 +227,37 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="blappole" type="462c0819:PsiDirectoryNode" />
               <item name="ui" type="462c0819:PsiDirectoryNode" />
+              <item name="controllers" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="AndroidView" />
+      <pane id="PackagesPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="KochFractal" type="58d84e3e:PackageViewProjectNode" />
+              <item name="KochFractal" type="616d4139:PackageViewModuleNode" />
+            </path>
+            <path>
+              <item name="KochFractal" type="58d84e3e:PackageViewProjectNode" />
+              <item name="KochFractal" type="616d4139:PackageViewModuleNode" />
+              <item name="eu.blappole" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="KochFractal" type="58d84e3e:PackageViewProjectNode" />
+              <item name="KochFractal" type="616d4139:PackageViewModuleNode" />
+              <item name="eu.blappole" type="1f31426a:PackageElementNode" />
+              <item name="ui" type="1f31426a:PackageElementNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -429,7 +430,9 @@
       <workItem from="1512476967555" duration="2425000" />
       <workItem from="1512479437351" duration="507000" />
       <workItem from="1512552649246" duration="7695000" />
-      <workItem from="1512561693665" duration="985000" />
+      <workItem from="1512561693665" duration="1632000" />
+      <workItem from="1512631815022" duration="21000" />
+      <workItem from="1513687993753" duration="1160000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1507111252708</created>
@@ -515,11 +518,18 @@
       <option name="project" value="LOCAL" />
       <updated>1511699221386</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Started working on W13, not working. Mapped crashes on loading">
+      <created>1512563282135</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1512563282135</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="84066000" />
+    <option name="totallyTimeSpent" value="85894000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -533,8 +543,8 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30109206" sideWeight="0.5052083" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30109206" sideWeight="0.49479166" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30109206" sideWeight="0.49479166" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32917318" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -545,8 +555,8 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3978159" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -605,7 +615,8 @@
     <MESSAGE value="Added saving methods" />
     <MESSAGE value="Updated Console" />
     <MESSAGE value="Added GUI, Text working" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added GUI, Text working" />
+    <MESSAGE value="Started working on W13, not working. Mapped crashes on loading" />
+    <option name="LAST_COMMIT_MESSAGE" value="Started working on W13, not working. Mapped crashes on loading" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -790,16 +801,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/eu/blappole/ui/Gui.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="21" column="39" lean-forward="true" selection-start-line="21" selection-start-column="39" selection-end-line="21" selection-end-column="39" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/eu/blappole/ui/gui.fxml">
       <provider editor-type-id="JavaFX-Scene-Builder">
         <state />
@@ -817,7 +818,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="308">
           <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -825,7 +825,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="274">
           <caret line="49" column="17" lean-forward="true" selection-start-line="49" selection-start-column="17" selection-end-line="49" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -833,7 +832,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="106">
           <caret line="43" column="35" lean-forward="true" selection-start-line="43" selection-start-column="35" selection-end-line="43" selection-end-column="35" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -866,10 +864,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/eu/blappole/ui/Gui.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="21" column="39" lean-forward="true" selection-start-line="21" selection-start-column="39" selection-end-line="21" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/eu/blappole/ui/controllers/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="644">
-          <caret line="62" column="51" lean-forward="false" selection-start-line="62" selection-start-column="51" selection-end-line="62" selection-end-column="51" />
+        <state relative-caret-position="271">
+          <caret line="191" column="26" lean-forward="true" selection-start-line="191" selection-start-column="26" selection-end-line="191" selection-end-column="26" />
           <folding>
             <element signature="method#readBufferedText#0;class#Controller#0" expanded="false" />
             <element signature="method#clearCanvas#0;class#Controller#0" expanded="false" />
@@ -879,11 +887,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/eu/blappole/ui/Console.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="952">
-          <caret line="75" column="5" lean-forward="false" selection-start-line="75" selection-start-column="5" selection-end-line="75" selection-end-column="5" />
+        <state relative-caret-position="-345">
+          <caret line="71" column="23" lean-forward="true" selection-start-line="71" selection-start-column="23" selection-end-line="71" selection-end-column="23" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#writeMapped#0;class#Console#0" expanded="false" />
             <element signature="method#writeText#0;class#Console#0" expanded="false" />
             <element signature="method#writeBufferedText#0;class#Console#0" expanded="false" />
             <element signature="method#writeObject#0;class#Console#0" expanded="false" />
@@ -894,8 +901,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/eu/blappole/ui/TypeGetter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="3" column="55" lean-forward="false" selection-start-line="3" selection-start-column="55" selection-end-line="3" selection-end-column="55" />
+        <state relative-caret-position="70">
+          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
           <folding />
         </state>
       </provider>

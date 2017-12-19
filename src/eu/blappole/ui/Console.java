@@ -6,6 +6,7 @@ import eu.blappole.timeutil.TimeStamp;
 
 import java.io.*;
 import java.nio.ByteBuffer;
+import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.util.*;
 
@@ -20,6 +21,10 @@ public class Console {
 
     private static String filename;
     private static Type type = TypeGetter.TYPE;
+    private static RandomAccessFile randomAccessFile;
+    private static FileChannel fileChannel;
+    private static byte[] bytes;
+    private static MappedByteBuffer mappedByteBuffer;
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -42,6 +47,7 @@ public class Console {
 
     private static void generateKoch(int level) throws IOException {
         filename = "Koch" + level + ".kch";
+        List<Edge> edges = new ArrayList<>();
         openWriters();
         KochFractal koch = new KochFractal();
         koch.setLevel(level);
@@ -50,15 +56,9 @@ public class Console {
                 switch (type) {
                     case TEXT: writeText((Edge) arg); break;
                     case BINARY: writeObject((Edge) arg); break;
-                    case MAPPED:
-                        writeMapped((Edge) arg);
-                        break;
-                    case BUFFEREDTEXT:
-                        writeBufferedText((Edge) arg);
-                        break;
-                    case BUFFEREDBINARY:
-                        writeBufferedObject((Edge) arg);
-                        break;
+                    case MAPPED: edges.add((Edge) arg); break;
+                    case BUFFEREDTEXT: writeBufferedText((Edge) arg); break;
+                    case BUFFEREDBINARY: writeBufferedObject((Edge) arg); break;
                 }
             } catch (IOException ex) {
                 ex.printStackTrace();
@@ -70,6 +70,9 @@ public class Console {
         koch.generateLeftEdge();
         koch.generateRightEdge();
         closeWriters();
+        if(type == Type.MAPPED) {
+            writeMapped(edges);
+        }
         timeStamp.setEnd("End");
         System.out.println(timeStamp);
         System.out.println(koch.getNrOfEdges());
@@ -105,19 +108,17 @@ public class Console {
         }
     }
 
-    private static void writeMapped(Edge edge) throws IOException {
-        RandomAccessFile randomAccessFile = new RandomAccessFile(filename, "rw");
-        FileChannel fileChannel = randomAccessFile.getChannel();
-        ByteBuffer byteBuffer = ByteBuffer.allocate(42);
-
-        edge.persist(byteBuffer);
-        byteBuffer.flip();
-
-        // Set the position to the end, so you append the edge to the file.
-        fileChannel.position(fileChannel.size());
-        fileChannel.write(byteBuffer);
-
-        fileChannel.close();
+    private static void writeMapped(List<Edge> edges) throws IOException {
+        randomAccessFile = new RandomAccessFile(filename, "rw");
+        fileChannel = randomAccessFile.getChannel();
+        try(ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()){
+            try(ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream)){
+                objectOutputStream.writeObject(edges);
+            }
+            bytes = byteArrayOutputStream.toByteArray();
+        }
+        mappedByteBuffer = fileChannel.map(FileChannel.MapMode.READ_WRITE, 0, bytes.length);
+        mappedByteBuffer.put(bytes);
         randomAccessFile.close();
     }
 

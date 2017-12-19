@@ -14,6 +14,7 @@ import javafx.scene.paint.Color;
 
 import java.io.*;
 import java.nio.ByteBuffer;
+import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -56,11 +57,23 @@ public class Controller {
         time.setBegin("Start");
 
         switch (type) {
-            case TEXT: readText(); break;
-            case BINARY: readObject(); break;
-            case MAPPED: readMapped(); break;
-            case BUFFEREDTEXT: readBufferedText(); break;
-            case BUFFEREDBINARY: readBufferedObject(); break;
+            case TEXT:
+                readText();
+                break;
+            case BINARY:
+                readObject();
+                break;
+            case MAPPED:
+                for (Edge e: readMapped()) {
+                    drawEdge(e);
+                }
+                break;
+            case BUFFEREDTEXT:
+                readBufferedText();
+                break;
+            case BUFFEREDBINARY:
+                readBufferedObject();
+                break;
         }
         time.setEnd("End");
         System.out.println(time);
@@ -68,32 +81,35 @@ public class Controller {
 
     private void openReaders() throws IOException {
 //        if(type == Type.BINARY || type == Type.BUFFEREDBINARY) {
-            fileInputStream = new FileInputStream(filename);
-            objectInputStream = new ObjectInputStream(fileInputStream);
+        fileInputStream = new FileInputStream(filename);
+        objectInputStream = new ObjectInputStream(fileInputStream);
 //        }
 //        else if (type == Type.TEXT || type == Type.BUFFEREDTEXT) {
-            scanner = new Scanner(new FileInputStream(filename));
-            bufferedScanner = new Scanner(new BufferedInputStream(new FileInputStream(filename)));
+        scanner = new Scanner(new FileInputStream(filename));
+        bufferedScanner = new Scanner(new BufferedInputStream(new FileInputStream(filename)));
 //        }
     }
 
-    private void readMapped() throws IOException {
+    private ArrayList<Edge> readMapped() throws IOException {
         ArrayList<Edge> edges = new ArrayList<>();
-        final RandomAccessFile randomAccessFile = new RandomAccessFile(filename, "r");
-        final FileChannel fileChannel = randomAccessFile.getChannel();
-        final ByteBuffer byteBuffer = ByteBuffer.allocate((int)randomAccessFile.length());
-
-        fileChannel.read(byteBuffer);
-        byteBuffer.flip();
-
-        while (byteBuffer.hasRemaining()) {
-            Edge edge = new Edge();
-            edge.recover(byteBuffer);
-            edges.add(edge);
+        RandomAccessFile randomAccessFile = null;
+        try {
+            randomAccessFile = new RandomAccessFile(filename, "r");
+            FileChannel fileChannel = randomAccessFile.getChannel();
+            MappedByteBuffer mappedByteBuffer = fileChannel.map(FileChannel.MapMode.READ_ONLY, 0, randomAccessFile.length());
+            byte[] bytes = new byte[(int) randomAccessFile.length()];
+            mappedByteBuffer.get(bytes);
+            ObjectInputStream objectInputStream = null;
+            objectInputStream = new ObjectInputStream(new ByteArrayInputStream(bytes));
+            edges = (ArrayList<Edge>) objectInputStream.readObject();
+            objectInputStream.close();
+            randomAccessFile.close();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (randomAccessFile != null) randomAccessFile.close();
         }
-
-        fileChannel.close();
-        randomAccessFile.close();
+        return edges;
     }
 
     private void readText() {
