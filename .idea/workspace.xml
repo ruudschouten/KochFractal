@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="84012019-97e0-4df2-8c77-5ab3e1c05a01" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/JSF3_w13_opdracht.docx" afterPath="$PROJECT_DIR$/doc/JSF3_w13_opdracht.docx" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/blappole/ui/Console.java" afterPath="$PROJECT_DIR$/src/eu/blappole/ui/Console.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/blappole/ui/TypeGetter.java" afterPath="$PROJECT_DIR$/src/eu/blappole/ui/TypeGetter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/blappole/ui/controllers/Controller.java" afterPath="$PROJECT_DIR$/src/eu/blappole/ui/controllers/Controller.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -174,7 +172,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="676" />
+    <option name="x" value="-7" />
     <option name="width" value="697" />
     <option name="height" value="745" />
   </component>
@@ -432,7 +430,7 @@
       <workItem from="1512552649246" duration="7695000" />
       <workItem from="1512561693665" duration="1632000" />
       <workItem from="1512631815022" duration="21000" />
-      <workItem from="1513687993753" duration="1160000" />
+      <workItem from="1513687993753" duration="1275000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1507111252708</created>
@@ -525,11 +523,18 @@
       <option name="project" value="LOCAL" />
       <updated>1512563282135</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Mapped now works">
+      <created>1513689177441</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1513689177441</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="85894000" />
+    <option name="totallyTimeSpent" value="86009000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -543,7 +548,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30109206" sideWeight="0.5052083" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30109206" sideWeight="0.49479166" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30109206" sideWeight="0.49479166" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32917318" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -616,7 +621,8 @@
     <MESSAGE value="Updated Console" />
     <MESSAGE value="Added GUI, Text working" />
     <MESSAGE value="Started working on W13, not working. Mapped crashes on loading" />
-    <option name="LAST_COMMIT_MESSAGE" value="Started working on W13, not working. Mapped crashes on loading" />
+    <MESSAGE value="Mapped now works" />
+    <option name="LAST_COMMIT_MESSAGE" value="Mapped now works" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
