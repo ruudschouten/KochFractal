@@ -2,6 +2,7 @@ package eu.blappole.ui.controllers;
 
 import eu.blappole.calculate.Edge;
 import eu.blappole.calculate.WatchKochRunnable;
+import eu.blappole.filelocking.Consumer;
 import eu.blappole.timeutil.TimeStamp;
 import eu.blappole.ui.FilenameGetter;
 import eu.blappole.ui.Type;
@@ -26,6 +27,7 @@ public class Controller {
     public ComboBox cbbKochLevels;
     public Canvas kochCanvas;
 
+    private int mode = 1;
     private int level = 1;
     private String filename;
     private String lockedFilename;
@@ -51,13 +53,15 @@ public class Controller {
                 level = (int) newValue;
             }
         });
-        new Thread(new WatchKochRunnable(Paths.get(FilenameGetter.FILEPATH), this)).start();
+        if(mode == 0) {
+            new Thread(new WatchKochRunnable(Paths.get(FilenameGetter.FILEPATH), this)).start();
+        } else {
+            reset();
+        }
     }
 
     public void loadKoch(ActionEvent actionEvent) throws IOException {
         clearCanvas();
-//        filename = FilenameGetter.FILEPREFIX + level + FilenameGetter.FILETYPE;
-        openReaders();
 
         TimeStamp time = new TimeStamp();
         time.setBegin("Start");
@@ -84,6 +88,18 @@ public class Controller {
 //        }
     }
 
+    public void reset() {
+        try {
+            new Thread(new Consumer(this)).start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void clear() {
+        clearCanvas();
+    }
+
     private ArrayList<Edge> readMapped() throws IOException {
         ArrayList<Edge> edges = new ArrayList<>();
         RandomAccessFile randomAccessFile = null;
@@ -93,7 +109,7 @@ public class Controller {
             MappedByteBuffer mappedByteBuffer = fileChannel.map(FileChannel.MapMode.READ_ONLY, 0, randomAccessFile.length());
             byte[] bytes = new byte[(int) randomAccessFile.length()];
             mappedByteBuffer.get(bytes);
-            //Hierbij heb ik hulp gekregen van Bart en Tom.
+            //Hierbij heb ik hulp gekregen van Tom en Bart.
             sun.misc.Cleaner cleaner = ((DirectBuffer) mappedByteBuffer).cleaner();
             cleaner.clean();
             ObjectInputStream objectInputStream = null;

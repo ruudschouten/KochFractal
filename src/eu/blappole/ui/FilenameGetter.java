@@ -7,4 +7,5 @@ public class FilenameGetter {
 
     public static final String FILENAME = FILEPREFIX + FILETYPE;
     public static final String REALTIMEPATH = FILEPATH + "/" + FILENAME;
+    public static final String SYNCPATH = FILEPATH + "/" + FILEPREFIX + "Sync" + FILETYPE;
 }

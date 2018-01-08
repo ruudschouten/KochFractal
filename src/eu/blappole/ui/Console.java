@@ -142,7 +142,7 @@ public class Console {
         fileChannel.close();
         randomAccessFile.close();
 
-        //Hierbij heb ik hulp gekregen van Bart en Tom. Ik kreeg steeds een FileNotFoundException en die is hiermee opgelost.
+        //Hierbij heb ik hulp gekregen van Bart en Tom.
         sun.misc.Cleaner cleaner = ((DirectBuffer) mappedByteBuffer).cleaner();
         cleaner.clean();
     }
