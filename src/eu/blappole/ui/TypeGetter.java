@@ -1,5 +1,5 @@
 package eu.blappole.ui;
 
 public class TypeGetter {
-    public final static Type TYPE = Type.MAPPED;
+    public static final Type TYPE = Type.MAPPED;
 }

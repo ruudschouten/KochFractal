@@ -1,7 +1,9 @@
 package eu.blappole.ui.controllers;
 
 import eu.blappole.calculate.Edge;
+import eu.blappole.calculate.WatchKochRunnable;
 import eu.blappole.timeutil.TimeStamp;
+import eu.blappole.ui.FilenameGetter;
 import eu.blappole.ui.Type;
 import eu.blappole.ui.TypeGetter;
 import javafx.beans.value.ChangeListener;
@@ -11,11 +13,12 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ComboBox;
 import javafx.scene.paint.Color;
+import sun.nio.ch.DirectBuffer;
 
 import java.io.*;
-import java.nio.ByteBuffer;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -25,6 +28,7 @@ public class Controller {
 
     private int level = 1;
     private String filename;
+    private String lockedFilename;
     private Scanner scanner;
     private Scanner bufferedScanner;
 
@@ -35,8 +39,9 @@ public class Controller {
      */
     private Type type = TypeGetter.TYPE;
 
-    public void initialize() {
+    public void initialize() throws IOException {
         clearCanvas();
+        filename = FilenameGetter.REALTIMEPATH;
         for (int i = 1; i <= 12; i++) {
             cbbKochLevels.getItems().add(i);
         }
@@ -46,34 +51,23 @@ public class Controller {
                 level = (int) newValue;
             }
         });
+        new Thread(new WatchKochRunnable(Paths.get(FilenameGetter.FILEPATH), this)).start();
     }
 
     public void loadKoch(ActionEvent actionEvent) throws IOException {
         clearCanvas();
-        filename = "Koch" + level + ".kch";
+//        filename = FilenameGetter.FILEPREFIX + level + FilenameGetter.FILETYPE;
         openReaders();
 
         TimeStamp time = new TimeStamp();
         time.setBegin("Start");
 
         switch (type) {
-            case TEXT:
-                readText();
-                break;
-            case BINARY:
-                readObject();
-                break;
-            case MAPPED:
-                for (Edge e: readMapped()) {
-                    drawEdge(e);
-                }
-                break;
-            case BUFFEREDTEXT:
-                readBufferedText();
-                break;
-            case BUFFEREDBINARY:
-                readBufferedObject();
-                break;
+            case TEXT: readText(); break;
+            case BINARY: readObject(); break;
+            case MAPPED: for (Edge e : readMapped()) { drawEdge(e); } break;
+            case BUFFEREDTEXT: readBufferedText(); break;
+            case BUFFEREDBINARY: readBufferedObject(); break;
         }
         time.setEnd("End");
         System.out.println(time);
@@ -99,6 +93,9 @@ public class Controller {
             MappedByteBuffer mappedByteBuffer = fileChannel.map(FileChannel.MapMode.READ_ONLY, 0, randomAccessFile.length());
             byte[] bytes = new byte[(int) randomAccessFile.length()];
             mappedByteBuffer.get(bytes);
+            //Hierbij heb ik hulp gekregen van Bart en Tom.
+            sun.misc.Cleaner cleaner = ((DirectBuffer) mappedByteBuffer).cleaner();
+            cleaner.clean();
             ObjectInputStream objectInputStream = null;
             objectInputStream = new ObjectInputStream(new ByteArrayInputStream(bytes));
             edges = (ArrayList<Edge>) objectInputStream.readObject();
@@ -179,7 +176,7 @@ public class Controller {
         gc.fillRect(0.0, 0.0, 580, 580);
     }
 
-    private void drawEdge(Edge e) {
+    public void drawEdge(Edge e) {
         // Graphics
         GraphicsContext gc = kochCanvas.getGraphicsContext2D();
 

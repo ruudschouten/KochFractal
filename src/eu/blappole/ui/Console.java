@@ -3,12 +3,16 @@ package eu.blappole.ui;
 import eu.blappole.calculate.Edge;
 import eu.blappole.calculate.KochFractal;
 import eu.blappole.timeutil.TimeStamp;
+import sun.nio.ch.DirectBuffer;
 
 import java.io.*;
-import java.nio.ByteBuffer;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
+
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public class Console {
 
@@ -26,7 +30,7 @@ public class Console {
     private static byte[] bytes;
     private static MappedByteBuffer mappedByteBuffer;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
         boolean stop = false;
         while (!stop) {
@@ -39,16 +43,20 @@ public class Console {
             }
             try {
                 generateKoch(level);
-            } catch (IOException e) {
+
+                Path filePath = new File(filename).toPath();
+                Path realtimePath = new File(FilenameGetter.REALTIMEPATH).toPath();
+                Files.move(filePath, realtimePath, REPLACE_EXISTING);
+            } catch(IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
     private static void generateKoch(int level) throws IOException {
-        filename = "Koch" + level + ".kch";
+        filename = FilenameGetter.FILEPREFIX + level + FilenameGetter.FILETYPE;
         List<Edge> edges = new ArrayList<>();
-        openWriters();
+//        openWriters();
         KochFractal koch = new KochFractal();
         koch.setLevel(level);
         koch.addObserver((o, arg) -> {
@@ -69,8 +77,8 @@ public class Console {
         koch.generateBottomEdge();
         koch.generateLeftEdge();
         koch.generateRightEdge();
-        closeWriters();
-        if(type == Type.MAPPED) {
+//        closeWriters();
+        if (type == Type.MAPPED) {
             writeMapped(edges);
         }
         timeStamp.setEnd("End");
@@ -93,15 +101,21 @@ public class Console {
     }
 
     private static void closeWriters() throws IOException {
-        if(type == Type.TEXT) { writer.close(); }
-        else if(type == Type.BUFFEREDTEXT) { bufferedWriter.close(); }
-        else if(type == Type.BINARY) { objectOutputStream.close(); }
-        else if (type == Type.BUFFEREDBINARY) { bufferedObjectOutputStream.close(); }
+        if (type == Type.TEXT) {
+            writer.close();
+        } else if (type == Type.BUFFEREDTEXT) {
+            bufferedWriter.close();
+        } else if (type == Type.BINARY) {
+            objectOutputStream.close();
+        } else if (type == Type.BUFFEREDBINARY) {
+            bufferedObjectOutputStream.close();
+        }
         if (type == Type.TEXT || type == Type.BUFFEREDTEXT) {
             //Text
             bufferedWriter.close();
             writer.close();
-        } if (type == Type.BINARY || type == Type.BUFFEREDBINARY) {
+        }
+        if (type == Type.BINARY || type == Type.BUFFEREDBINARY) {
             //Object
             objectOutputStream.close();
             fileOutputStream.close();
@@ -111,15 +125,26 @@ public class Console {
     private static void writeMapped(List<Edge> edges) throws IOException {
         randomAccessFile = new RandomAccessFile(filename, "rw");
         fileChannel = randomAccessFile.getChannel();
-        try(ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()){
-            try(ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream)){
-                objectOutputStream.writeObject(edges);
-            }
+        try {
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
+            objectOutputStream.writeObject(edges);
+
             bytes = byteArrayOutputStream.toByteArray();
+            byteArrayOutputStream.close();
+            objectOutputStream.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         mappedByteBuffer = fileChannel.map(FileChannel.MapMode.READ_WRITE, 0, bytes.length);
         mappedByteBuffer.put(bytes);
+        fileChannel.close();
         randomAccessFile.close();
+
+        //Hierbij heb ik hulp gekregen van Bart en Tom. Ik kreeg steeds een FileNotFoundException en die is hiermee opgelost.
+        sun.misc.Cleaner cleaner = ((DirectBuffer) mappedByteBuffer).cleaner();
+        cleaner.clean();
     }
 
     private static void writeText(Edge e) throws IOException {
