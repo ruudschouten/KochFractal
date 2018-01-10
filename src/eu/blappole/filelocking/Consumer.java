@@ -34,16 +34,20 @@ public class Consumer implements Runnable {
         boolean finished = false;
         edgesWritten = 0;
         while (!finished){
+            //Lock the file
             try {
                 dataLock = fileChannel.lock(0, TOTALBYTES, false);
             } catch (IOException e) {
                 e.printStackTrace();
             }
             mappedByteBuffer.position(0);
+            //Get edges written to file
             int edges = mappedByteBuffer.getInt();
             int status = mappedByteBuffer.getInt();
             if(status == 1){
+                //Pos at 8 to skip status and nr of edges
                 mappedByteBuffer.position(8);
+                //Get edge data and add it to a new Edge instance
                 double x1 = mappedByteBuffer.getDouble();
                 double y1 = mappedByteBuffer.getDouble();
                 double x2 = mappedByteBuffer.getDouble();
@@ -52,25 +56,31 @@ public class Consumer implements Runnable {
                 Edge edge = new Edge(x1, y1, x2, y2, Color.hsb(hue, 1,1 ));
                 edgeList.add(edge);
                 mappedByteBuffer.position(4);
+                //Set status to 0 to indicate that the edge has been read
                 mappedByteBuffer.putInt(0);
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
+                        //Add the edges on the GUI
                         if(edgesWritten == 0) controller.clear();
                         controller.drawEdge(edge);
+                        //Increase edges written
                         edgesWritten++;
                     }
                 });
 
             }
+            //Check if edges matches the amount of edgesWritten
             if(edges == edgesWritten)
                 finished = true;
+            //Release the lock
             try {
                 dataLock.release();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        //Restart the process after finishing a fractal
         controller.reset();
     }
 }

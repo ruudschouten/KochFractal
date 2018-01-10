@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="84012019-97e0-4df2-8c77-5ab3e1c05a01" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/eu/blappole/filelocking/Consumer.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/eu/blappole/filelocking/Producer.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/blappole/ui/Console.java" afterPath="$PROJECT_DIR$/src/eu/blappole/ui/Console.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/blappole/ui/FilenameGetter.java" afterPath="$PROJECT_DIR$/src/eu/blappole/ui/FilenameGetter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/blappole/ui/controllers/Controller.java" afterPath="$PROJECT_DIR$/src/eu/blappole/ui/controllers/Controller.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/blappole/filelocking/Consumer.java" afterPath="$PROJECT_DIR$/src/eu/blappole/filelocking/Consumer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eu/blappole/filelocking/Producer.java" afterPath="$PROJECT_DIR$/src/eu/blappole/filelocking/Producer.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -64,22 +61,26 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Consumer.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Consumer.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/eu/blappole/filelocking/Consumer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="12" column="34" lean-forward="false" selection-start-line="12" selection-start-column="34" selection-end-line="12" selection-end-column="34" />
-              <folding />
+            <state relative-caret-position="565">
+              <caret line="86" column="0" lean-forward="true" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Producer.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Producer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/eu/blappole/filelocking/Producer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="6" column="26" lean-forward="true" selection-start-line="6" selection-start-column="26" selection-end-line="6" selection-end-column="26" />
-              <folding />
+            <state relative-caret-position="565">
+              <caret line="103" column="0" lean-forward="true" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -185,6 +186,7 @@
         <option value="$PROJECT_DIR$/src/eu/blappole/ui/Console.java" />
         <option value="$PROJECT_DIR$/src/eu/blappole/locking/Producer.java" />
         <option value="$PROJECT_DIR$/src/eu/blappole/filelocking/Producer.java" />
+        <option value="$PROJECT_DIR$/src/eu/blappole/filelocking/Consumer.java" />
       </list>
     </option>
   </component>
@@ -197,8 +199,8 @@
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="697" />
-    <option name="height" value="745" />
+    <option name="width" value="1025" />
+    <option name="height" value="788" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -218,9 +220,31 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
+      <pane id="PackagesPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="KochFractal" type="58d84e3e:PackageViewProjectNode" />
+              <item name="KochFractal" type="616d4139:PackageViewModuleNode" />
+            </path>
+            <path>
+              <item name="KochFractal" type="58d84e3e:PackageViewProjectNode" />
+              <item name="KochFractal" type="616d4139:PackageViewModuleNode" />
+              <item name="eu.blappole" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="KochFractal" type="58d84e3e:PackageViewProjectNode" />
+              <item name="KochFractal" type="616d4139:PackageViewModuleNode" />
+              <item name="eu.blappole" type="1f31426a:PackageElementNode" />
+              <item name="ui" type="1f31426a:PackageElementNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -252,28 +276,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="blappole" type="462c0819:PsiDirectoryNode" />
               <item name="ui" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="PackagesPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="KochFractal" type="58d84e3e:PackageViewProjectNode" />
-              <item name="KochFractal" type="616d4139:PackageViewModuleNode" />
-            </path>
-            <path>
-              <item name="KochFractal" type="58d84e3e:PackageViewProjectNode" />
-              <item name="KochFractal" type="616d4139:PackageViewModuleNode" />
-              <item name="eu.blappole" type="1f31426a:PackageElementNode" />
-            </path>
-            <path>
-              <item name="KochFractal" type="58d84e3e:PackageViewProjectNode" />
-              <item name="KochFractal" type="616d4139:PackageViewModuleNode" />
-              <item name="eu.blappole" type="1f31426a:PackageElementNode" />
-              <item name="ui" type="1f31426a:PackageElementNode" />
             </path>
           </expand>
           <select />
@@ -479,7 +481,9 @@
       <workItem from="1515247681084" duration="67000" />
       <workItem from="1515347472898" duration="2513000" />
       <workItem from="1515397379227" duration="8199000" />
-      <workItem from="1515416822751" duration="49000" />
+      <workItem from="1515416822751" duration="70000" />
+      <workItem from="1515483361033" duration="17000" />
+      <workItem from="1515569885338" duration="65000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1507111252708</created>
@@ -593,11 +597,18 @@
       <option name="project" value="LOCAL" />
       <updated>1515405342908</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Week 14 opdr 2">
+      <created>1515416889466</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1515416889466</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="100674000" />
+    <option name="totallyTimeSpent" value="100777000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -697,7 +708,8 @@
     <MESSAGE value="Mapped now works" />
     <MESSAGE value="Filld in doc" />
     <MESSAGE value="Week 14 opdr 1" />
-    <option name="LAST_COMMIT_MESSAGE" value="Week 14 opdr 1" />
+    <MESSAGE value="Week 14 opdr 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Week 14 opdr 2" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -904,7 +916,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="98">
           <caret line="7" column="18" lean-forward="true" selection-start-line="7" selection-start-column="18" selection-end-line="7" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -958,14 +969,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/eu/blappole/filelocking/Consumer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="12" column="34" lean-forward="false" selection-start-line="12" selection-start-column="34" selection-end-line="12" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/eu/blappole/ui/controllers/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="392">
@@ -998,9 +1001,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/eu/blappole/filelocking/Producer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="6" column="26" lean-forward="true" selection-start-line="6" selection-start-column="26" selection-end-line="6" selection-end-column="26" />
-          <folding />
+        <state relative-caret-position="565">
+          <caret line="103" column="0" lean-forward="true" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/eu/blappole/filelocking/Consumer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="565">
+          <caret line="86" column="0" lean-forward="true" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -17,6 +17,7 @@ import java.util.Scanner;
 
 public class Producer extends Application implements Observer {
 
+    //From Console Mapped
     private String file = FilenameGetter.SYNCPATH;
     private int BYTEAMOUNT = 48;
     private RandomAccessFile randomAccessFile = new RandomAccessFile(file, "rw");
@@ -31,6 +32,7 @@ public class Producer extends Application implements Observer {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        //Also from Console
         Scanner scanner = new Scanner(System.in);
         boolean stop = false;
         while (!stop) {
@@ -46,6 +48,7 @@ public class Producer extends Application implements Observer {
     }
 
     public void write(int level){
+        //Also from console
         KochFractal koch = new KochFractal();
         koch.setLevel(level);
         edges = koch.getNrOfEdges();
@@ -57,28 +60,39 @@ public class Producer extends Application implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+        //Set written to false
         boolean written = false;
+        //Loop until written is set to true, aka untill the file has been read by Consumer
         while (!written){
+            //Before writing lock the file.
             try {
                 dataLock = fileChannel.lock(0, 8, false);
             } catch (IOException e) {
                 e.printStackTrace();
             }
             Edge edge = (Edge) arg;
+            //Get edge from mappedByteBuffer on pos 4
+            //Starts at 4 because mappedByteBuffer starts with an int with the nr of edges
             mappedByteBuffer.position(4);
             int status = mappedByteBuffer.getInt();
+            //Check if status = 0 to indicate this edge hasn't been written to and if an edge has already been added
             if(status == 0 || generatedEdges == 0){
+                //Put pos back at 0 to overwrite the edges and the rest
                 mappedByteBuffer.position(0);
                 mappedByteBuffer.putInt(edges);
+                //Put this at 1 to tell Consumer that this edge can be read
                 mappedByteBuffer.putInt(1);
+                //Put in the edge data
                 mappedByteBuffer.putDouble(edge.X1);
                 mappedByteBuffer.putDouble(edge.Y1);
                 mappedByteBuffer.putDouble(edge.X2);
                 mappedByteBuffer.putDouble(edge.Y2);
                 mappedByteBuffer.putDouble(edge.hue);
+                //update generatedEdges, this is done to check if this loop has created an edge
                 generatedEdges++;
                 written = true;
             }
+            //release the lock after adding a edge
             try {
                 dataLock.release();
             } catch (IOException e) {
